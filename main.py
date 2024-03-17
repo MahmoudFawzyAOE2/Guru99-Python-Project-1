@@ -42,13 +42,15 @@ def main():
     print(emission_list)
     
     # Performing the analysis
+    Min_num = min(emission_list)
+    Min_index = emission_list.index(Min_num)
+    Min_country = countries[Min_index]
+    
     Max_num = max(emission_list)
     Max_index = emission_list.index(Max_num)
     Max_country = countries[Max_index]
     
-    Min_num = min(emission_list)
-    Min_index = emission_list.index(Min_num)
-    Min_country = countries[Min_index]
+    
     
     Average_num = sum(emission_list) / len(emission_list)
     
