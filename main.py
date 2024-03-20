@@ -5,9 +5,12 @@ Created on Sun Mar 17 10:20:55 2024
 @author: HP
 """
 import csv
+import matplotlib.pyplot as plt
 
 def main(): 
-    
+    '''
+    Day 1
+    '''  
     ''' reading the file '''
     f = open("Emissions.csv", "r")
     data = csv.reader(f)
@@ -18,8 +21,16 @@ def main():
     rows_d = {}
     for row in data:
         rows_d.update(dict([(row[0],row[1:])]))
-
-
+    
+    #analysis(rows_d)
+    day3(rows_d)
+   
+        
+def analysis(rows_d):
+    
+    '''
+    Day2
+    '''
     ''' Taking input from the user '''
     # Note: input shall not be changed to intger as it's a string in the dictionary
     year = input("Select a year to find statistics (1997 to 2010): ")
@@ -57,6 +68,37 @@ def main():
     # Printing the data in required format using formatted string
     print("In {}, countries with minimum and maximum CO2 emission levels were: [{}] and [{}] respectively. Average CO2 emissions in {} were {:.6f}".format(year, Min_country, Max_country, year, Average_num))
 
+
+def day3(rows_d):
+    '''
+    Day3
+    '''
+    ''' Taking input from the user '''
+    # First Leatter must be capital
+    country = input("Select a country to visualize: ")
+    print(country)
+    
+    ''' extracting the data '''
+    # getting the years [x-axis data] 
+    years = [float(i) for i in rows_d['CO2 per capita']]
+    print(years)
+    
+    # getting the emmisions [y-axis data]
+    emission_list = [float(i) for i in rows_d[country]]
+    print(emission_list)
+
+
+    ''' plotting '''
+    
+    fig, ax = plt.subplots()  # Create figure and axis objects
+
+    ax.plot(years, emission_list)
+    ax.set(title='Year vs Emissions in Capita',
+           ylabel='Emissions in {}'.format(country),
+           xlabel='Year'
+           )
+
+    plt.show()
 
 
 if __name__== "__main__":
