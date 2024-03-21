@@ -22,12 +22,13 @@ def main():
     for row in data:
         rows_d.update(dict([(row[0],row[1:])]))
     
-    #analysis(rows_d)
+    #day2(rows_d)
     #day3(rows_d)
-    day4(rows_d)
+    #day4(rows_d)
+    day5(rows_d)
    
         
-def analysis(rows_d):
+def day2(rows_d):
     
     '''
     Day2
@@ -92,25 +93,25 @@ def day3(rows_d):
     # Create figure and axis objects
     fig, ax = plt.subplots()  
 
-    #plotting data
+    # plotting data
     ax.plot(years, emission_list)
     
-    #adding titles
+    # adding titles
     ax.set(title='Year vs Emissions in Capita',
            ylabel='Emissions in {}'.format(country),
            xlabel='Year'
            )
     
-    #show plot
+    # show plot
     plt.show()
     
 def day4(rows_d):
     '''
-    Day4   Mongolia, Montenegro
+    Day4   
     '''  
     ''' Taking input from the user '''
     # First Leatter must be capital
-    countries = input("Write two comma-separated countries for which you want to visualize data: ")
+    countries = input("Write two comma-separated countries for which you want to visualize data: ")  # Mongolia, Montenegro
     countries_list = countries.split(', ')
     print(countries_list)
     country_1 = countries_list[0]
@@ -148,6 +149,48 @@ def day4(rows_d):
     # show plot
     plt.show()
 
+def day5(rows_d):
+    '''
+    Day5   
+    '''  
+    ''' Taking input from the user '''
+    countries_list = []
+    while len(countries_list) != 3:
+        
+        # First Leatter must be capital
+        countries = input("Write up to three comma-separated countries for which you want to extract data: ") 
+        # Australia, Austria, Azerbaijan, Bahamas
+        
+        countries_list = countries.split(', ')
+        print(countries_list)
+        
+        if len(countries_list) == 3:
+            break
+        else: 
+            print("ERR: Sorry, at most 3 countries can be entered.") 
+                
+    # field names
+    fields = ['CO2 per capita'] + rows_d['CO2 per capita']
+    print(fields)
+
+    # adding data rows of fields dictionary
+    rows = [fields]
+    for country in countries_list: 
+        rows.append([country] + rows_d[country])
+    print(rows)
+ 
+    # name of csv file
+    filename = "Emissions_subset.csv"
+ 
+    # writing to csv file
+    with open(filename, 'w') as csvfile:
+        # creating a csv writer object
+        csvwriter = csv.writer(csvfile)
+ 
+        # writing the fields
+        csvwriter.writerows(rows)
+
+    print("Data successfully extracted for countries {} saved into file Emissions_subset.csv".format(countries))
 
 if __name__== "__main__":
     main()
