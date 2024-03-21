@@ -23,7 +23,8 @@ def main():
         rows_d.update(dict([(row[0],row[1:])]))
     
     #analysis(rows_d)
-    day3(rows_d)
+    #day3(rows_d)
+    day4(rows_d)
    
         
 def analysis(rows_d):
@@ -68,7 +69,6 @@ def analysis(rows_d):
     # Printing the data in required format using formatted string
     print("In {}, countries with minimum and maximum CO2 emission levels were: [{}] and [{}] respectively. Average CO2 emissions in {} were {:.6f}".format(year, Min_country, Max_country, year, Average_num))
 
-
 def day3(rows_d):
     '''
     Day3
@@ -102,6 +102,50 @@ def day3(rows_d):
            )
     
     #show plot
+    plt.show()
+    
+def day4(rows_d):
+    '''
+    Day4   Mongolia, Montenegro
+    '''  
+    ''' Taking input from the user '''
+    # First Leatter must be capital
+    countries = input("Write two comma-separated countries for which you want to visualize data: ")
+    countries_list = countries.split(', ')
+    print(countries_list)
+    country_1 = countries_list[0]
+    country_2 = countries_list[1]
+    print(country_1)
+    
+    ''' extracting the data '''
+    # getting the years [x-axis data] 
+    years = [float(i) for i in rows_d['CO2 per capita']]
+    print(years)
+    
+    # getting the emmisions [y-axis data]
+    emission_list_1 = [float(i) for i in rows_d[country_1]]
+    emission_list_2 = [float(i) for i in rows_d[country_2]]
+    print(emission_list_1, emission_list_2)
+
+
+    ''' plotting '''
+    # Create figure and axis objects
+    fig, ax = plt.subplots()  
+
+    # plotting data
+    ax.plot(years, emission_list_1)
+    ax.plot(years, emission_list_2)
+    
+    # adding titles
+    ax.set(title='Year vs Emissions in Capita',
+           ylabel='Emissions',
+           xlabel='Year'
+           )
+    
+    # addong legend
+    ax.legend([country_1, country_2])
+    
+    # show plot
     plt.show()
 
 
