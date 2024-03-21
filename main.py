@@ -89,15 +89,19 @@ def day3(rows_d):
 
 
     ''' plotting '''
-    
-    fig, ax = plt.subplots()  # Create figure and axis objects
+    # Create figure and axis objects
+    fig, ax = plt.subplots()  
 
+    #plotting data
     ax.plot(years, emission_list)
+    
+    #adding titles
     ax.set(title='Year vs Emissions in Capita',
            ylabel='Emissions in {}'.format(country),
            xlabel='Year'
            )
-
+    
+    #show plot
     plt.show()
 
 

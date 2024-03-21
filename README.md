@@ -9,11 +9,12 @@ day1:
     Read CSV File and store data in the dictionary
 
 day2 task: 
-    1- Take input from the user 
+    1- Take input year from the user 
     2- Calculate worldwide statistics (min, max, average) for a user-entered year
     
 day3 task:
-
+    1- Take input country from the user 
+    2- Plot the data associated with this country using matplotlib
 
 day4 task:
 
