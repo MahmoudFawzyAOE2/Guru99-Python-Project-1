@@ -22,7 +22,7 @@ with open('Emissions.csv', 'r') as file:
         emission_dict.update({data.split(',')[0]: data.split(',')[1:]})
 
 print("All data from Emissions.csv has been read into a dictionary.", end="\n\n")
-'''
+
 input_year = input("Select a year to find statistics (1997 to 2010): ")
 
 index_of = int()
@@ -53,7 +53,7 @@ print(f'In {input_year}, countries with minimum and maximum CO2 emission levels 
       f'and [{max_emission}] respectively.')
 print(f'Average CO2 emissions in {input_year} were {"%.6f" % round(average_emissions, 6)}')
 print()
-'''
+
 """
 Step 1: Take the input from user to visualize data
 """

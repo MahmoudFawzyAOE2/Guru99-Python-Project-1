@@ -2,7 +2,7 @@
 """
 Created on Sun Mar 17 10:20:55 2024
 
-@author: HP
+@author: Mahmoud Fawzy
 """
 import csv
 import matplotlib.pyplot as plt
@@ -22,6 +22,9 @@ def main():
     for row in data:
         rows_d.update(dict([(row[0],row[1:])]))
     
+    print("All data from Emissions.csv has been read into a dictionary.", end="\n\n")
+    
+    # execution of code modules
     #day2(rows_d)
     #day3(rows_d)
     #day4(rows_d)
@@ -35,7 +38,13 @@ def day2(rows_d):
     '''
     ''' Taking input from the user '''
     # Note: input shall not be changed to intger as it's a string in the dictionary
-    year = input("Select a year to find statistics (1997 to 2010): ")
+    while True :
+        year = input("Select a year to find statistics (1997 to 2010): ")
+    
+        # exception handling
+        if 1997 <= int(year) <= 2010 :
+            break
+        else: print("Sorry that is not a valid year.")
     
     
     ''' Extracting index of the year '''
@@ -76,18 +85,20 @@ def day3(rows_d):
     '''
     ''' Taking input from the user '''
     # First Leatter must be capital
-    country = input("Select a country to visualize: ")
-    print(country)
+    while True:
+        country = input("Select a country to visualize: ").capitalize()
+        
+        # exception handling
+        if country != 'CO2 per capita' and country in rows_d:
+            break
+        else: print("Sorry that is not a valid Country.")
     
     ''' extracting the data '''
     # getting the years [x-axis data] 
     years = [float(i) for i in rows_d['CO2 per capita']]
-    print(years)
     
     # getting the emmisions [y-axis data]
     emission_list = [float(i) for i in rows_d[country]]
-    print(emission_list)
-
 
     ''' plotting '''
     # Create figure and axis objects
@@ -111,22 +122,36 @@ def day4(rows_d):
     '''  
     ''' Taking input from the user '''
     # First Leatter must be capital
-    countries = input("Write two comma-separated countries for which you want to visualize data: ")  # Mongolia, Montenegro
-    countries_list = countries.split(', ')
-    print(countries_list)
-    country_1 = countries_list[0]
-    country_2 = countries_list[1]
-    print(country_1)
+    while True :
+        countries = input("Write two comma-separated countries for which you want to visualize data: ")  # Mongolia, Montenegro
+        countries_list = countries.split(', ')
+        
+        # exception handling (must be 2 countries, must be separated be comma)
+        if len(countries_list) != 2:
+            print("Please write up to two comma-separated countries for which you want to visualize data...")
+            continue
+            
+        country_1 = countries_list[0].capitalize()
+        country_2 = countries_list[1].capitalize()
+        
+        # exception handling (Countries must not be the same.")
+        if country_1 == country_2 :
+            print("Sorry the two Countries must not be the same.")
+            continue
+        
+        # exception handling (country name must not be the years key & must be a valid key)
+        if country_1 != 'CO2 per capita' or country_2 != 'CO2 per capita' or country_1 not in rows_d.keys() or country_1 not in rows_d.keys():
+            break
+        else: print("Sorry that is not a valid Country.")
+    
     
     ''' extracting the data '''
     # getting the years [x-axis data] 
     years = [float(i) for i in rows_d['CO2 per capita']]
-    print(years)
     
     # getting the emmisions [y-axis data]
     emission_list_1 = [float(i) for i in rows_d[country_1]]
     emission_list_2 = [float(i) for i in rows_d[country_2]]
-    print(emission_list_1, emission_list_2)
 
 
     ''' plotting '''
@@ -154,20 +179,32 @@ def day5(rows_d):
     Day5   
     '''  
     ''' Taking input from the user '''
-    countries_list = []
-    while len(countries_list) != 3:
+    while True:
         
         # First Leatter must be capital
         countries = input("Write up to three comma-separated countries for which you want to extract data: ") 
         # Australia, Austria, Azerbaijan, Bahamas
         
         countries_list = countries.split(', ')
-        print(countries_list)
         
-        if len(countries_list) == 3:
-            break
-        else: 
+        # exception handling (must be 3 countries, must be separated be comma)
+        if len(countries_list) != 3:
             print("ERR: Sorry, at most 3 countries can be entered.") 
+            continue 
+        
+        # exception handling (Countries must not be the same.")
+        if len(countries_list) != len(set(countries_list)) :
+            print("Sorry there is mutiple of one of the countries")
+            continue
+        
+        # exception handling (country name must not be the years key & must be a valid key)
+        for index in range(len(countries_list)):
+            countries_list[index] = countries_list[index].capitalize()
+            country = countries_list[index]
+            print(countries_list[index])
+            if country != 'CO2 per capita' or country not in rows_d.keys():
+                break
+            else: print("Sorry that is not a valid Country.")
                 
     # field names
     fields = ['CO2 per capita'] + rows_d['CO2 per capita']
