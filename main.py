@@ -24,11 +24,11 @@ def main():
     
     print("All data from Emissions.csv has been read into a dictionary.", end="\n\n")
     
-    # execution of code modules
+    # execution of code modules (uncomment the modules that you want to execute)
     #day2(rows_d)
     #day3(rows_d)
     #day4(rows_d)
-    day5(rows_d)
+    #day5(rows_d)
    
         
 def day2(rows_d):
@@ -89,7 +89,7 @@ def day3(rows_d):
         country = input("Select a country to visualize: ").capitalize()
         
         # exception handling
-        if country != 'CO2 per capita' and country in rows_d:
+        if country in rows_d:
             break
         else: print("Sorry that is not a valid Country.")
     
@@ -140,7 +140,7 @@ def day4(rows_d):
             continue
         
         # exception handling (country name must not be the years key & must be a valid key)
-        if country_1 != 'CO2 per capita' or country_2 != 'CO2 per capita' or country_1 not in rows_d.keys() or country_1 not in rows_d.keys():
+        if country_1 not in rows_d.keys() or country_1 not in rows_d.keys():
             break
         else: print("Sorry that is not a valid Country.")
     
@@ -181,7 +181,6 @@ def day5(rows_d):
     ''' Taking input from the user '''
     while True:
         
-        # First Leatter must be capital
         countries = input("Write up to three comma-separated countries for which you want to extract data: ") 
         # Australia, Austria, Azerbaijan, Bahamas
         
@@ -198,13 +197,17 @@ def day5(rows_d):
             continue
         
         # exception handling (country name must not be the years key & must be a valid key)
+        token = True
         for index in range(len(countries_list)):
             countries_list[index] = countries_list[index].capitalize()
             country = countries_list[index]
             print(countries_list[index])
-            if country != 'CO2 per capita' or country not in rows_d.keys():
+            if country not in rows_d.keys():
+                print("Sorry that is not a valid Country.")
+                token = False
                 break
-            else: print("Sorry that is not a valid Country.")
+        
+        if token : break
                 
     # field names
     fields = ['CO2 per capita'] + rows_d['CO2 per capita']
