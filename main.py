@@ -11,16 +11,22 @@ def main():
     '''
     Day 1
     '''  
+    print()
+    print("A Simple Data Analysis Program")
+    print()
+
     ''' reading the file '''
     f = open("Emissions.csv", "r")
     data = csv.reader(f)
-    
     
     ''' transforming the rows into dictionary '''
     # transforming every row into a key:value pair and add this pair to the main dictionary
     rows_d = {}
     for row in data:
         rows_d.update(dict([(row[0],row[1:])]))
+        
+    #print("\n".join([f"{key}: {value}" for key, value in rows_d.items()]))
+
     
     print("All data from Emissions.csv has been read into a dictionary.", end="\n\n")
     
@@ -28,7 +34,7 @@ def main():
     #day2(rows_d)
     #day3(rows_d)
     #day4(rows_d)
-    #day5(rows_d)
+    day5(rows_d)
    
         
 def day2(rows_d):
@@ -84,7 +90,6 @@ def day3(rows_d):
     Day3
     '''
     ''' Taking input from the user '''
-    # First Leatter must be capital
     while True:
         country = input("Select a country to visualize: ").capitalize()
         
@@ -140,7 +145,7 @@ def day4(rows_d):
             continue
         
         # exception handling (country name must not be the years key & must be a valid key)
-        if country_1 not in rows_d.keys() or country_1 not in rows_d.keys():
+        if country_1 in rows_d.keys() or country_1 in rows_d.keys():
             break
         else: print("Sorry that is not a valid Country.")
     
@@ -201,7 +206,6 @@ def day5(rows_d):
         for index in range(len(countries_list)):
             countries_list[index] = countries_list[index].capitalize()
             country = countries_list[index]
-            print(countries_list[index])
             if country not in rows_d.keys():
                 print("Sorry that is not a valid Country.")
                 token = False
@@ -211,13 +215,12 @@ def day5(rows_d):
                 
     # field names
     fields = ['CO2 per capita'] + rows_d['CO2 per capita']
-    print(fields)
 
     # adding data rows of fields dictionary
     rows = [fields]
     for country in countries_list: 
         rows.append([country] + rows_d[country])
-    print(rows)
+    print("\n".join([f"{row}" for row in rows]))
  
     # name of csv file
     filename = "Emissions_subset.csv"
